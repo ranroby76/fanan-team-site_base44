@@ -11,9 +11,11 @@ export default function Layout({ children, currentPageName }) {
   const navItems = [
     { name: "Home", page: "Home", icon: Home },
     { name: "Products", page: "Products", icon: Music },
-    { name: "Packs", page: "Packs", icon: Package },
+    { name: "GUI-Me", page: "GuiMe", icon: Settings },
+    { name: "Pack List", page: "Packs", icon: Package },
     { name: "How to Buy", page: "HowToBuy", icon: HelpCircle },
-    { name: "Contact", page: "Contact", icon: Mail },
+    { name: "Buy Now", page: "BuyNow", icon: Package },
+    { name: "Contact Us", page: "Contact", icon: Mail },
   ];
 
   return (
