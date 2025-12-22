@@ -1,6 +1,8 @@
-import Home from './pages/Home';
+import BuyNow from './pages/BuyNow';
 import Contact from './pages/Contact';
 import FreePack from './pages/FreePack';
+import GuiMe from './pages/GuiMe';
+import Home from './pages/Home';
 import HowToBuy from './pages/HowToBuy';
 import MadMidiPack from './pages/MadMidiPack';
 import MaxPack from './pages/MaxPack';
@@ -9,15 +11,15 @@ import ProPack from './pages/ProPack';
 import ProductDetail from './pages/ProductDetail';
 import Products from './pages/Products';
 import SiteManage from './pages/SiteManage';
-import GuiMe from './pages/GuiMe';
-import BuyNow from './pages/BuyNow';
 import __Layout from './Layout.jsx';
 
 
 export const PAGES = {
-    "Home": Home,
+    "BuyNow": BuyNow,
     "Contact": Contact,
     "FreePack": FreePack,
+    "GuiMe": GuiMe,
+    "Home": Home,
     "HowToBuy": HowToBuy,
     "MadMidiPack": MadMidiPack,
     "MaxPack": MaxPack,
@@ -26,8 +28,6 @@ export const PAGES = {
     "ProductDetail": ProductDetail,
     "Products": Products,
     "SiteManage": SiteManage,
-    "GuiMe": GuiMe,
-    "BuyNow": BuyNow,
 }
 
 export const pagesConfig = {

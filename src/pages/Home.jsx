@@ -40,64 +40,59 @@ export default function Home() {
   ];
 
   return (
-    <div>
-      <HeroSection />
-      
-      {/* Features Section */}
-      <section className="py-16 border-y border-gray-800/50 bg-gray-900/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, index) => {
-              const Icon = feature.icon;
-              return (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: index * 0.1 }}
-                  className="text-center"
-                >
-                  <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                    <Icon className="w-6 h-6 text-blue-400" />
-                  </div>
-                  <h3 className="text-white font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-400 text-sm">{feature.description}</p>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+    <div className="relative">
+      {/* Colorful Background Bubbles */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-blue-600 rounded-full blur-[150px] opacity-20" />
+        <div className="absolute top-40 right-20 w-80 h-80 bg-green-500 rounded-full blur-[150px] opacity-20" />
+        <div className="absolute bottom-20 left-1/3 w-96 h-96 bg-orange-500 rounded-full blur-[150px] opacity-20" />
+        <div className="absolute bottom-40 right-1/4 w-80 h-80 bg-red-500 rounded-full blur-[150px] opacity-20" />
+      </div>
 
-      <FeaturedProducts products={products} isLoading={isLoading} />
-      <PacksShowcase />
-
-      {/* CTA Section */}
-      <section className="py-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-gradient-to-br from-blue-900/30 to-purple-900/30 rounded-2xl p-8 sm:p-12 border border-blue-500/20"
-          >
-            <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
-              Ready to Create Amazing Music?
-            </h2>
-            <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-              Join thousands of producers who trust Fanan Team for their music production needs.
-            </p>
-            <a 
-              href={createPageUrl("Products")}
-              className="inline-flex items-center justify-center px-8 py-4 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500 text-white font-semibold transition-all shadow-lg shadow-blue-500/25"
+      <div className="relative z-10">
+        <HeroSection />
+        
+        {/* Sales Banner */}
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
             >
-              Start Exploring
-            </a>
-          </motion.div>
-        </div>
-      </section>
+              <img 
+                src="https://fananteam.com/images/A4.png"
+                alt="Sales Season"
+                className="w-full max-w-4xl mx-auto rounded-xl"
+              />
+              <h2 className="text-3xl font-bold text-white mt-6">
+                WE BELIEVE EVERY SEASON IS SALES SEASON
+              </h2>
+            </motion.div>
+          </div>
+        </section>
+
+        <PacksShowcase />
+
+        {/* GUI Me Banner */}
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+            >
+              <Link to={createPageUrl("GuiMe")}>
+                <img 
+                  src="https://fananteam.com/images/A2.png"
+                  alt="GUI Me"
+                  className="w-full rounded-xl hover:scale-105 transition-transform duration-300"
+                />
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

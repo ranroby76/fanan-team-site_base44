@@ -19,57 +19,58 @@ export default function Layout({ children, currentPageName }) {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white">
+    <div className="min-h-screen bg-black text-white">
       <style>{`
         :root {
-          --primary: 221.2 83.2% 53.3%;
-          --primary-foreground: 210 40% 98%;
+          --primary: 45 93% 47%;
+          --primary-foreground: 0 0% 0%;
           --accent: 38 92% 50%;
         }
-        
-        .glow-text {
-          text-shadow: 0 0 20px rgba(59, 130, 246, 0.5), 0 0 40px rgba(59, 130, 246, 0.3);
+
+        .gold-text {
+          color: #FFD700;
+          text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
         }
-        
+
         .card-glow:hover {
-          box-shadow: 0 0 30px rgba(59, 130, 246, 0.3), 0 0 60px rgba(59, 130, 246, 0.1);
-        }
-        
-        .gradient-border {
-          background: linear-gradient(135deg, rgba(59, 130, 246, 0.5), rgba(147, 51, 234, 0.5));
-          padding: 1px;
+          box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
         }
       `}</style>
 
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 bg-gray-950/80 backdrop-blur-xl border-b border-gray-800/50">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-black/90 backdrop-blur-xl border-b border-gray-800/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                <Music className="w-6 h-6 text-white" />
-              </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                Fanan Team
+              <span className="text-2xl font-bold gold-text" style={{ fontFamily: 'serif' }}>
+                fanan
               </span>
             </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-1">
-              {navItems.map((item) => (
-                <Link
-                  key={item.page}
-                  to={createPageUrl(item.page)}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
-                    currentPageName === item.page
-                      ? "bg-blue-500/20 text-blue-400"
-                      : "text-gray-400 hover:text-white hover:bg-gray-800/50"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
+              {navItems.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.page}
+                    to={createPageUrl(item.page)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                      currentPageName === item.page
+                        ? "text-yellow-500"
+                        : "text-gray-400 hover:text-yellow-500"
+                    }`}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {item.name}
+                  </Link>
+                );
+              })}
+              <div className="ml-2 flex items-center gap-2 px-3 py-2 text-gray-400 hover:text-yellow-500 cursor-pointer">
+                <Settings className="w-4 h-4" />
+                <span className="text-sm">VIP Login</span>
+              </div>
             </nav>
 
             {/* Mobile Menu */}
@@ -90,8 +91,8 @@ export default function Layout({ children, currentPageName }) {
                         onClick={() => setMobileMenuOpen(false)}
                         className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${
                           currentPageName === item.page
-                            ? "bg-blue-500/20 text-blue-400"
-                            : "text-gray-400 hover:text-white hover:bg-gray-800/50"
+                            ? "text-yellow-500"
+                            : "text-gray-400 hover:text-yellow-500"
                         }`}
                       >
                         <Icon className="w-5 h-5" />
@@ -112,16 +113,13 @@ export default function Layout({ children, currentPageName }) {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-950 border-t border-gray-800/50 mt-20">
+      <footer className="bg-black border-t border-gray-800/50 mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <Music className="w-6 h-6 text-white" />
-                </div>
-                <span className="text-xl font-bold text-white">Fanan Team</span>
+                <span className="text-2xl font-bold gold-text" style={{ fontFamily: 'serif' }}>fanan</span>
               </div>
               <p className="text-gray-400 text-sm">
                 Premium Kontakt libraries and MIDI tools for music producers worldwide.
@@ -152,7 +150,7 @@ export default function Layout({ children, currentPageName }) {
               </p>
               <Link
                 to={createPageUrl("Contact")}
-                className="text-blue-400 hover:text-blue-300 text-sm transition-colors"
+                className="text-yellow-500 hover:text-yellow-400 text-sm transition-colors"
               >
                 Contact Us →
               </Link>
