@@ -22,10 +22,20 @@ async function getPayPalAccessToken() {
 }
 
 function generateSerialNumber(machineId, packId) {
-  const timestamp = Date.now().toString(36);
-  const random = Math.random().toString(36).substring(2, 8).toUpperCase();
-  const packPrefix = packId === 'mad-midi' ? 'MM' : 'MX';
-  return `${packPrefix}-${timestamp}-${random}`;
+  const id = parseInt(machineId);
+  
+  if (packId === 'max-pack') {
+    // MAX pack formula: serial = (((((id + 7541) * 2) + 2001) * 2) - 9002)
+    const serial = (((((id + 7541) * 2) + 2001) * 2) - 9002);
+    return serial.toString();
+  } else if (packId === 'mad-midi') {
+    // MAD MIDI formula: ((((((id + 8354) * 2) + 1691) * 2) - 9097) then drop last digit
+    const serial = ((((((id + 8354) * 2) + 1691) * 2) - 9097));
+    const serialStr = serial.toString();
+    return serialStr.slice(0, -1);
+  }
+  
+  return machineId;
 }
 
 Deno.serve(async (req) => {
