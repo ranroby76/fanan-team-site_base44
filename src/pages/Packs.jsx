@@ -8,20 +8,17 @@ const packConfigs = [
   {
     id: "free",
     name: "Free Pack",
-    icon: Gift,
-    iconColor: "text-yellow-400"
+    logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/96ec786ab_freepack.png"
   },
   {
     id: "max",
     name: "Max! Pack",
-    icon: Star,
-    iconColor: "text-yellow-400"
+    logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/7796dc67d_propack.png"
   },
   {
     id: "mad-midi",
     name: "Mad MIDI Machines Pack",
-    icon: Cog,
-    iconColor: "text-yellow-400"
+    logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/c6850e68d_madmidimachines.png"
   }
 ];
 
@@ -67,7 +64,6 @@ export default function Packs() {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="space-y-6">
           {packConfigs.map((pack, index) => {
-            const Icon = pack.icon;
             const packProducts = productsByPack[pack.id] || [];
             
             return (
@@ -78,11 +74,12 @@ export default function Packs() {
                 transition={{ duration: 0.4, delay: index * 0.1 }}
                 className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-gray-700/50 rounded-lg p-6"
               >
-                <div className="flex items-center gap-3 mb-4">
-                  <Icon className={`w-6 h-6 ${pack.iconColor}`} />
-                  <h2 className="text-xl font-bold text-yellow-400">
-                    {pack.name}
-                  </h2>
+                <div className="flex items-center gap-4 mb-4">
+                  <img 
+                    src={pack.logo} 
+                    alt={pack.name}
+                    className="h-12 w-auto"
+                  />
                 </div>
                 
                 {packProducts.length > 0 ? (
