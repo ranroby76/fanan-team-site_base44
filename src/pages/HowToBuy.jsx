@@ -1,161 +1,180 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { 
-  CreditCard, 
-  Mail, 
+  HelpCircle, 
   Download, 
-  CheckCircle, 
-  ArrowRight,
-  HelpCircle,
-  MessageCircle
+  Users, 
+  ShoppingCart, 
+  AlertTriangle, 
+  Shield, 
+  Smile 
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HowToBuy() {
-  const steps = [
-    {
-      number: 1,
-      icon: CheckCircle,
-      title: "Choose Your Product",
-      description: "Browse our collection of Kontakt libraries and MIDI tools. Select individual products or save with our bundled packs."
-    },
-    {
-      number: 2,
-      icon: Mail,
-      title: "Contact Us",
-      description: "Send us a message through our contact form or email. Let us know which products you're interested in purchasing."
-    },
-    {
-      number: 3,
-      icon: CreditCard,
-      title: "Make Payment",
-      description: "We accept PayPal and various payment methods. You'll receive payment instructions via email."
-    },
-    {
-      number: 4,
-      icon: Download,
-      title: "Download & Enjoy",
-      description: "After payment confirmation, you'll receive download links for your products. Start creating amazing music!"
-    }
-  ];
-
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-black">
       {/* Header */}
-      <div className="bg-gradient-to-b from-gray-900/80 to-gray-950 border-b border-gray-800/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="bg-gradient-to-b from-gray-900/80 to-gray-950 border-b border-gray-800/50 py-16">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="text-center"
           >
-            <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              How to Buy
+            <HelpCircle className="w-16 h-16 text-yellow-400 mx-auto mb-4" />
+            <h1 className="text-3xl sm:text-4xl font-bold text-yellow-400 mb-4">
+              Registration & Purchasing Guide
             </h1>
-            <p className="text-gray-400 max-w-2xl mx-auto">
-              Follow these simple steps to purchase our products and start creating amazing music.
+            <p className="text-gray-400 text-lg">
+              Welcome! Here are some instructions that will help you use our new automatic system.
             </p>
           </motion.div>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={step.number}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.4, delay: index * 0.1 }}
-              >
-                <Card className="bg-gray-900/50 border-gray-800/50 h-full">
-                  <CardHeader className="pb-2">
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                        <span className="text-xl font-bold text-blue-400">{step.number}</span>
-                      </div>
-                      <CardTitle className="text-xl text-white">{step.title}</CardTitle>
-                    </div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-400">{step.description}</p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* CTA Section */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-6">
+        {/* 1. Try the Demo First */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-center bg-gradient-to-br from-blue-900/30 to-purple-900/30 rounded-2xl p-8 sm:p-12 border border-blue-500/20"
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-yellow-700/30 rounded-lg p-6"
         >
-          <HelpCircle className="w-12 h-12 text-blue-400 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-white mb-4">
-            Ready to Get Started?
-          </h2>
-          <p className="text-gray-400 mb-8 max-w-xl mx-auto">
-            Browse our products or contact us directly if you have any questions about purchasing.
+          <div className="flex items-start gap-4 mb-4">
+            <Download className="w-8 h-8 text-yellow-400 flex-shrink-0" />
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-1">
+                1. Try the Demo First!
+              </h2>
+              <p className="text-gray-500 text-sm">Avoid the headache of regret.</p>
+            </div>
+          </div>
+          <p className="text-gray-300 leading-relaxed">
+            Don't buy anything before downloading and trying the demo or free edition first. Make sure you are pleased with the results. Our policy generally declines refunds after a serial has been provided, and that's why our demos are maximum-functional or include free editions.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to={createPageUrl("Products")}>
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-500 hover:to-purple-500">
-                Browse Products
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
-            <Link to={createPageUrl("Contact")}>
-              <Button size="lg" variant="outline" className="border-gray-700 text-gray-300 hover:bg-gray-800">
-                <MessageCircle className="w-4 h-4 mr-2" />
-                Contact Us
-              </Button>
-            </Link>
+        </motion.div>
+
+        {/* 2. Select the Correct Bundle */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-yellow-700/30 rounded-lg p-6"
+        >
+          <div className="flex items-start gap-4 mb-4">
+            <Users className="w-8 h-8 text-yellow-400 flex-shrink-0" />
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-1">
+                2. Select the Correct Bundle
+              </h2>
+              <p className="text-gray-500 text-sm">Ensure your desired plugin is in the chosen pack.</p>
+            </div>
+          </div>
+          <div className="text-gray-300 leading-relaxed space-y-3">
+            <p>
+              We've decreased the plugin bundles to 3. All the veteran plugins are now part of the same bundle called <strong className="text-yellow-400">"MAX!"</strong>.
+            </p>
+            <p>
+              If you're an existing customer and you've already bought at least one bundle from us before (at any price), you can use your old serial number, and it will unlock the "MAX!" bundle completely.
+            </p>
           </div>
         </motion.div>
 
-        {/* FAQ Section */}
-        <div className="mt-16">
-          <h2 className="text-2xl font-bold text-white mb-8 text-center">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            {[
-              {
-                q: "What payment methods do you accept?",
-                a: "We accept PayPal, credit cards, and bank transfers. Contact us for specific payment options."
-              },
-              {
-                q: "How long until I receive my products?",
-                a: "Once payment is confirmed, you'll receive download links within 24 hours (usually much faster)."
-              },
-              {
-                q: "Do you offer refunds?",
-                a: "Due to the digital nature of our products, we don't offer refunds. Please try our free products first!"
-              },
-              {
-                q: "Can I use the products commercially?",
-                a: "Yes! All our products come with a license for commercial music production."
-              }
-            ].map((faq, i) => (
-              <Card key={i} className="bg-gray-900/50 border-gray-800/50">
-                <CardContent className="p-6">
-                  <h3 className="text-white font-semibold mb-2">{faq.q}</h3>
-                  <p className="text-gray-400">{faq.a}</p>
-                </CardContent>
-              </Card>
-            ))}
+        {/* 3. The Purchasing Process */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-yellow-700/30 rounded-lg p-6"
+        >
+          <div className="flex items-start gap-4 mb-4">
+            <ShoppingCart className="w-8 h-8 text-yellow-400 flex-shrink-0" />
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-1">
+                3. The Purchasing Process
+              </h2>
+              <p className="text-gray-500 text-sm">From your DAW to your email.</p>
+            </div>
           </div>
-        </div>
+          <p className="text-gray-300 mb-4">If you've decided which bundle you want to buy:</p>
+          <ol className="list-decimal list-inside space-y-2 text-gray-300 leading-relaxed">
+            <li>Download any plugin from your desired bundle and open it in your favorite DAW.</li>
+            <li>Press the <strong className="text-yellow-400">"REGISTER"</strong> button on the plugin interface to get your unique <strong className="text-yellow-400">Machine ID</strong> number.</li>
+            <li>Go to the <Link to={createPageUrl("BuyNow")} className="text-yellow-400 hover:text-yellow-300 underline">"Buy Now"</Link> page on our site.</li>
+            <li>Enter your Machine ID into the text box that matches your chosen bundle (e.g., for "Callisto VSTi", use the "MAX!" bundle's ID box).</li>
+            <li>Press <strong className="text-yellow-400">"BUY NOW"</strong> and complete the purchase.</li>
+            <li>Once complete, you'll receive your purchase details and a matching <strong className="text-yellow-400">serial number</strong> in your email.</li>
+            <li>Copy the serial number, go back to the opened plugin in your DAW, paste it, and press <strong className="text-yellow-400">"Save"</strong>.</li>
+          </ol>
+          <p className="text-gray-300 mt-4 italic">
+            Once at least one plugin is registered, the entire bundle becomes registered as well.
+          </p>
+        </motion.div>
+
+        {/* Important: License File Location */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-yellow-700/30 rounded-lg p-6"
+        >
+          <div className="flex items-start gap-4 mb-4">
+            <AlertTriangle className="w-8 h-8 text-yellow-400 flex-shrink-0" />
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-1">
+                Important: License File Location
+              </h2>
+              <p className="text-gray-500 text-sm">Do not move the license file!</p>
+            </div>
+          </div>
+          <p className="text-gray-300 leading-relaxed">
+            Normally, pressing "save" will save the license file to the <code className="bg-gray-700/50 px-2 py-1 rounded text-yellow-400">C:\Fananteam</code> folder. Do not change the folder's location or transport the file elsewhere, or the registration will not work!
+          </p>
+        </motion.div>
+
+        {/* Your Privacy is Our Priority */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.5 }}
+          className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-yellow-700/30 rounded-lg p-6"
+        >
+          <div className="flex items-start gap-4 mb-4">
+            <Shield className="w-8 h-8 text-yellow-400 flex-shrink-0" />
+            <div>
+              <h2 className="text-2xl font-bold text-yellow-400 mb-1">
+                Your Privacy is Our Priority
+              </h2>
+              <p className="text-gray-500 text-sm">We respect the modesty of the individual.</p>
+            </div>
+          </div>
+          <p className="text-gray-300 leading-relaxed">
+            Fanan team will always ensure your privacy as a user. Our plugins never use your internet connection, nor do they use any registry files, tricks, or digital spies. Our new registration system focuses on ease of use and comfort, but above all, on privacy.
+          </p>
+        </motion.div>
+
+        {/* Have Fun & Get In Touch */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.6 }}
+          className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 border border-yellow-700/30 rounded-lg p-6 text-center"
+        >
+          <Smile className="w-12 h-12 text-yellow-400 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-yellow-400 mb-3">
+            Have Fun & Get In Touch
+          </h2>
+          <p className="text-gray-300 leading-relaxed mb-6">
+            Contact us for any additional information. We hope you enjoy our plugins!
+          </p>
+          <Link to={createPageUrl("Contact")}>
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-lg transition-colors">
+              Contact Support
+            </button>
+          </Link>
+        </motion.div>
       </div>
     </div>
   );
