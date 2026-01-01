@@ -66,6 +66,12 @@ Deno.serve(async (req) => {
     
     const order = await response.json();
     
+    if (!response.ok) {
+      console.error('PayPal API error:', order);
+      return Response.json({ error: order.message || 'PayPal API error' }, { status: response.status });
+    }
+    
+    console.log('PayPal order created:', order.id);
     return Response.json({ orderId: order.id });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
