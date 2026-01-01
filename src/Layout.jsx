@@ -43,9 +43,11 @@ export default function Layout({ children, currentPageName }) {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to={createPageUrl("Home")} className="flex items-center gap-3">
-              <span className="text-2xl font-bold gold-text" style={{ fontFamily: 'serif' }}>
-                fanan
-              </span>
+              <img 
+                src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/12c39ef84_A3.png"
+                alt="fanan"
+                className="h-8 w-auto"
+              />
             </Link>
 
             {/* Desktop Navigation */}
@@ -119,7 +121,11 @@ export default function Layout({ children, currentPageName }) {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-4">
-                <span className="text-2xl font-bold gold-text" style={{ fontFamily: 'serif' }}>fanan</span>
+                <img 
+                  src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/12c39ef84_A3.png"
+                  alt="fanan"
+                  className="h-10 w-auto"
+                />
               </div>
               <p className="text-gray-400 text-sm">
                 Premium Kontakt libraries and MIDI tools for music producers worldwide.
