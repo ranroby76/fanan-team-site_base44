@@ -73,13 +73,16 @@ Deno.serve(async (req) => {
         }
       };
 
-      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+      const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(emailData)
       });
+
+      const emailResult = await emailResponse.text();
+      console.log('EmailJS response:', emailResponse.status, emailResult);
 
       return Response.json({ 
         success: true,
