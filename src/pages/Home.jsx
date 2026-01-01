@@ -52,26 +52,6 @@ export default function Home() {
       <div className="relative z-10">
         <HeroSection />
         
-        {/* Sales Banner */}
-        <section className="py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-            >
-              <img 
-                src="https://fananteam.com/images/A4.png"
-                alt="Sales Season"
-                className="w-full max-w-4xl mx-auto rounded-xl"
-              />
-              <h2 className="text-3xl font-bold text-white mt-6">
-                WE BELIEVE EVERY SEASON IS SALES SEASON
-              </h2>
-            </motion.div>
-          </div>
-        </section>
-
         <PacksShowcase />
 
         {/* GUI Me Banner */}
