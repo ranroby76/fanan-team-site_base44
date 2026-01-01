@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Settings, Home, Package, HelpCircle, Mail, ShoppingCart, Wrench, Image as ImageIcon } from "lucide-react";
+import { Settings, Home, Package, HelpCircle, Mail, ShoppingCart, Wrench, Image as ImageIcon, DollarSign } from "lucide-react";
 import ImageUploader from "../components/admin/ImageUploader";
+import PriceManager from "../components/admin/PriceManager";
 
 export default function SiteManage() {
   const sections = [
     { id: "images", label: "Images", icon: ImageIcon },
+    { id: "prices", label: "Prices", icon: DollarSign },
     { id: "home", label: "Home", icon: Home },
     { id: "products", label: "Products", icon: Package },
     { id: "gui-me", label: "GUI-Me", icon: Wrench },
@@ -48,6 +50,10 @@ export default function SiteManage() {
 
           <TabsContent value="images">
             <ImageUploader />
+          </TabsContent>
+
+          <TabsContent value="prices">
+            <PriceManager />
           </TabsContent>
 
           <TabsContent value="home">
