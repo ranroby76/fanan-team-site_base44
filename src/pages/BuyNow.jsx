@@ -38,7 +38,8 @@ export default function BuyNow() {
         <div className="absolute inset-0 flex flex-col items-center justify-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4" style={{
             textShadow: '2px 2px 8px rgba(0,0,0,0.8)',
-            letterSpacing: '0.1em'
+            letterSpacing: '0.1em',
+            WebkitTextStroke: '3px black'
           }}>
             WELCOME TO
           </h1>
