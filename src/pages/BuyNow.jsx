@@ -31,10 +31,23 @@ export default function BuyNow() {
       {/* Hero Banner */}
       <div className="relative w-full">
         <img 
-          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/6b27a772f_Screenshot_7.jpg"
+          src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/699583712_A5.jpg"
           alt="Welcome to fanan store"
           className="w-full h-auto"
         />
+        <div className="absolute inset-0 flex flex-col items-center justify-center">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4" style={{
+            textShadow: '2px 2px 8px rgba(0,0,0,0.8)',
+            letterSpacing: '0.1em'
+          }}>
+            WELCOME TO
+          </h1>
+          <img 
+            src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/2e6d2b68e_A6.png"
+            alt="fanan store"
+            className="w-64 sm:w-80 md:w-96 h-auto"
+          />
+        </div>
       </div>
 
       {/* Packs Grid */}
