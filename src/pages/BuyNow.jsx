@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "../utils";
 import { Input } from "@/components/ui/input";
@@ -15,6 +15,20 @@ export default function BuyNow() {
   const [maxPackSerial, setMaxPackSerial] = useState("");
   const [madMidiEmail, setMadMidiEmail] = useState("");
   const [maxPackEmail, setMaxPackEmail] = useState("");
+  const [paypalClientId, setPaypalClientId] = useState(null);
+
+  useEffect(() => {
+    const fetchClientId = async () => {
+      try {
+        const { data } = await base44.functions.invoke('getPayPalClientId');
+        setPaypalClientId(data.clientId);
+      } catch (error) {
+        console.error('Failed to fetch PayPal client ID:', error);
+        toast.error('Failed to load PayPal');
+      }
+    };
+    fetchClientId();
+  }, []);
 
   const packs = [
     {
@@ -45,9 +59,17 @@ export default function BuyNow() {
     }
   ];
 
+  if (!paypalClientId) {
+    return (
+      <div className="min-h-screen bg-[#0a0a0a] flex items-center justify-center">
+        <div className="text-white">Loading PayPal...</div>
+      </div>
+    );
+  }
+
   return (
     <PayPalScriptProvider options={{ 
-      clientId: "YOUR_LIVE_PAYPAL_CLIENT_ID",
+      clientId: paypalClientId,
       currency: "USD",
       intent: "capture"
     }}>

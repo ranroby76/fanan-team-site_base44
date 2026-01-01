@@ -3,8 +3,8 @@ import { createClientFromRequest } from 'npm:@base44/sdk@0.8.6';
 const PAYPAL_API = "https://api-m.paypal.com";
 
 async function getPayPalAccessToken() {
-  const clientId = Deno.env.get("PAYPAL_CLIENT_ID") || "AdoK3-mdDQxleLLbYSTCtVy1naeCPfP78ayxahlSAcwwhIEGtY6eEiaBJZrbFCKWdQ0g9seXWYTcO5zo";
-  const secret = Deno.env.get("PAYPAL_SECRET") || "EDb4MZ_GLNK3H7ENiSgWyCnTeM2IjF5GjTIcvd9IYLy1-VSEPrtQSpeTe9TdFUifUFO8tcZ7vj-8LnoS";
+  const clientId = Deno.env.get("PAYPAL_CLIENT_ID");
+  const secret = Deno.env.get("PAYPAL_SECRET");
   
   const auth = btoa(`${clientId}:${secret}`);
   
