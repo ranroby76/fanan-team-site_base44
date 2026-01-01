@@ -60,11 +60,12 @@ Deno.serve(async (req) => {
       const serialNumber = generateSerialNumber(customData.machineId, customData.packId);
       const amount = captureData.purchase_units[0].payments.captures[0].amount.value;
 
-      // Send thank you email via EmailJS
+      // Send thank you email via EmailJS (server-side with private key)
       const emailData = {
         service_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_SERVICE_ID"),
         template_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_TEMPLATE_ID"),
         user_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"),
+        accessToken: Deno.env.get("EMAILJS_PRIVATE_KEY"),
         template_params: {
           to_name: customData.email.split('@')[0],
           to_email: customData.email,
@@ -83,6 +84,10 @@ Deno.serve(async (req) => {
 
       const emailResult = await emailResponse.text();
       console.log('EmailJS response:', emailResponse.status, emailResult);
+      
+      if (emailResponse.status !== 200) {
+        console.error('Failed to send email:', emailResult);
+      }
 
       return Response.json({ 
         success: true,
