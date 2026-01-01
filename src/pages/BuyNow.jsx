@@ -116,24 +116,23 @@ export default function BuyNow() {
                     <PayPalButtons
                       style={{ layout: "vertical" }}
                       createOrder={async () => {
-                        try {
-                          console.log('Creating order for:', pack.id, pack.state);
-                          const response = await base44.functions.invoke('createPayPalOrder', {
-                            packId: pack.id,
-                            price: pack.price,
-                            packName: pack.name,
-                            machineId: pack.state
-                          });
-                          console.log('Order response:', response);
-                          if (response.data && response.data.orderId) {
-                            return response.data.orderId;
-                          }
-                          throw new Error('Invalid order response');
-                        } catch (error) {
-                          console.error('Order creation failed:', error);
-                          toast.error("Failed to create order: " + error.message);
-                          throw error;
+                        console.log('Creating order for:', pack.id, pack.state);
+                        const response = await base44.functions.invoke('createPayPalOrder', {
+                          packId: pack.id,
+                          price: pack.price,
+                          packName: pack.name,
+                          machineId: pack.state
+                        });
+                        console.log('Full response:', response);
+                        console.log('Response data:', response.data);
+                        
+                        if (response?.data?.orderId) {
+                          console.log('Returning order ID:', response.data.orderId);
+                          return response.data.orderId;
                         }
+                        
+                        console.error('Invalid response structure:', response);
+                        throw new Error('No order ID received from server');
                       }}
                       onApprove={async (data) => {
                         try {
