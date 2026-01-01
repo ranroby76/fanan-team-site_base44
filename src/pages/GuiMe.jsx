@@ -12,17 +12,24 @@ export default function GuiMe() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="flex items-start gap-4"
+            className="flex items-start justify-between gap-4"
           >
-            <Glasses className="w-12 h-12 text-gray-900 flex-shrink-0" />
-            <div>
-              <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
-                GUI Me: Our Design Philosophy
-              </h1>
-              <p className="text-gray-800 text-lg">
-                Crafting intuitive and inspiring user interfaces for your creative flow.
-              </p>
+            <div className="flex items-start gap-4">
+              <Glasses className="w-12 h-12 text-gray-900 flex-shrink-0" />
+              <div>
+                <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-2">
+                  GUI Me: Our Design Philosophy
+                </h1>
+                <p className="text-gray-800 text-lg">
+                  Crafting intuitive and inspiring user interfaces for your creative flow.
+                </p>
+              </div>
             </div>
+            <img 
+              src="https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/6987a1e31_A1.png"
+              alt="GUI-Me"
+              className="h-16 w-auto flex-shrink-0"
+            />
           </motion.div>
         </div>
       </div>
