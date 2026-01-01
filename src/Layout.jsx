@@ -128,7 +128,7 @@ export default function Layout({ children, currentPageName }) {
                 />
               </div>
               <p className="text-gray-400 text-sm">
-                Premium Kontakt libraries and MIDI tools for music producers worldwide.
+                Premium PRO plugins for music production
               </p>
             </div>
 
