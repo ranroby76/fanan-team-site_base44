@@ -48,7 +48,8 @@ export default function BuyNow() {
   return (
     <PayPalScriptProvider options={{ 
       clientId: "AdoK3-mdDQxleLLbYSTCtVy1naeCPfP78ayxahlSAcwwhIEGtY6eEiaBJZrbFCKWdQ0g9seXWYTcO5zo",
-      currency: "USD"
+      currency: "USD",
+      intent: "capture"
     }}>
       <div className="min-h-screen bg-[#0a0a0a]">
       {/* Hero Banner */}
