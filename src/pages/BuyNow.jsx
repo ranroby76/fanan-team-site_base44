@@ -117,15 +117,21 @@ export default function BuyNow() {
                       style={{ layout: "vertical" }}
                       createOrder={async () => {
                         try {
-                          const { data } = await base44.functions.invoke('createPayPalOrder', {
+                          console.log('Creating order for:', pack.id, pack.state);
+                          const response = await base44.functions.invoke('createPayPalOrder', {
                             packId: pack.id,
                             price: pack.price,
                             packName: pack.name,
                             machineId: pack.state
                           });
-                          return data.orderId;
+                          console.log('Order response:', response);
+                          if (response.data && response.data.orderId) {
+                            return response.data.orderId;
+                          }
+                          throw new Error('Invalid order response');
                         } catch (error) {
-                          toast.error("Failed to create order");
+                          console.error('Order creation failed:', error);
+                          toast.error("Failed to create order: " + error.message);
                           throw error;
                         }
                       }}
