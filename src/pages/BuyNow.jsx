@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { base44 } from "@/api/base44Client";
 import { toast } from "sonner";
+import { useQuery } from "@tanstack/react-query";
 
 export default function BuyNow() {
   const [madMidiId, setMadMidiId] = useState("");
@@ -16,6 +17,12 @@ export default function BuyNow() {
   const [madMidiEmail, setMadMidiEmail] = useState("");
   const [maxPackEmail, setMaxPackEmail] = useState("");
   const [paypalClientId, setPaypalClientId] = useState(null);
+
+  const { data: packPrices } = useQuery({
+    queryKey: ['packPrices'],
+    queryFn: () => base44.entities.PackPrice.list(),
+    initialData: [],
+  });
 
   useEffect(() => {
     const fetchClientId = async () => {
@@ -30,13 +37,27 @@ export default function BuyNow() {
     fetchClientId();
   }, []);
 
+  const getPackPrice = (packId, defaultPrice) => {
+    const priceData = packPrices?.find(p => p.pack_id === packId);
+    return priceData ? {
+      price: priceData.price.toFixed(2),
+      displayPrice: priceData.display_price
+    } : {
+      price: defaultPrice,
+      displayPrice: `$${defaultPrice}`
+    };
+  };
+
+  const madMidiPrice = getPackPrice("mad-midi", "22.00");
+  const maxPrice = getPackPrice("max-pack", "12.00");
+
   const packs = [
     {
       id: "mad-midi",
       name: "MAD MIDI MACHINES",
       logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/c6850e68d_madmidimachines.png",
-      price: "22.00",
-      displayPrice: "$22.00",
+      price: madMidiPrice.price,
+      displayPrice: madMidiPrice.displayPrice,
       state: madMidiId,
       setState: setMadMidiId,
       email: madMidiEmail,
@@ -48,8 +69,8 @@ export default function BuyNow() {
       id: "max-pack",
       name: "MAX! PACK",
       logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/7796dc67d_propack.png",
-      price: "12.00",
-      displayPrice: "$12.00",
+      price: maxPrice.price,
+      displayPrice: maxPrice.displayPrice,
       state: maxPackId,
       setState: setMaxPackId,
       email: maxPackEmail,
