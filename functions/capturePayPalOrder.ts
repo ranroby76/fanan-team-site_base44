@@ -58,22 +58,29 @@ Deno.serve(async (req) => {
     if (captureData.status === 'COMPLETED') {
       const customData = JSON.parse(captureData.purchase_units[0].payments.captures[0].custom_id);
       const serialNumber = generateSerialNumber(customData.machineId, customData.packId);
-      
-      // Send email with serial number
-      await base44.asServiceRole.integrations.Core.SendEmail({
-        to: customData.email,
-        subject: `Your ${customData.packId === 'mad-midi' ? 'MAD MIDI MACHINES' : 'MAX! PACK'} Serial Number`,
-        body: `Thank you for your purchase!
+      const amount = captureData.purchase_units[0].payments.captures[0].amount.value;
 
-Your Machine ID: ${customData.machineId}
-Your Serial Number: ${serialNumber}
+      // Send thank you email via EmailJS
+      const emailData = {
+        service_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_SERVICE_ID"),
+        template_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_TEMPLATE_ID"),
+        user_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"),
+        template_params: {
+          to_name: customData.email.split('@')[0],
+          to_email: customData.email,
+          amount: amount,
+          serial_number: serialNumber
+        }
+      };
 
-Please copy this serial number and paste it into the plugin's registration window.
-
-Best regards,
-Fanan Team`
+      await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(emailData)
       });
-      
+
       return Response.json({ 
         success: true,
         serialNumber,
