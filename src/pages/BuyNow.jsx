@@ -4,32 +4,47 @@ import { createPageUrl } from "../utils";
 import { Input } from "@/components/ui/input";
 import { CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { base44 } from "@/api/base44Client";
+import { toast } from "sonner";
 
 export default function BuyNow() {
   const [madMidiId, setMadMidiId] = useState("");
   const [maxPackId, setMaxPackId] = useState("");
+  const [madMidiSerial, setMadMidiSerial] = useState("");
+  const [maxPackSerial, setMaxPackSerial] = useState("");
 
   const packs = [
     {
       id: "mad-midi",
       name: "MAD MIDI MACHINES",
       logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/c6850e68d_madmidimachines.png",
-      price: "$22.00",
+      price: "22.00",
+      displayPrice: "$22.00",
       state: madMidiId,
-      setState: setMadMidiId
+      setState: setMadMidiId,
+      serial: madMidiSerial,
+      setSerial: setMadMidiSerial
     },
     {
       id: "max-pack",
       name: "MAX! PACK",
       logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/7796dc67d_propack.png",
-      price: "$12.00",
+      price: "12.00",
+      displayPrice: "$12.00",
       state: maxPackId,
-      setState: setMaxPackId
+      setState: setMaxPackId,
+      serial: maxPackSerial,
+      setSerial: setMaxPackSerial
     }
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a]">
+    <PayPalScriptProvider options={{ 
+      clientId: "AdoK3-mdDQxleLLbYSTCtVy1naeCPfP78ayxahlSAcwwhIEGtY6eEiaBJZrbFCKWdQ0g9seXWYTcO5zo",
+      currency: "USD"
+    }}>
+      <div className="min-h-screen bg-[#0a0a0a]">
       {/* Hero Banner */}
       <div className="relative w-full">
         <img 
@@ -71,8 +86,8 @@ export default function BuyNow() {
                   alt={pack.name}
                   className="w-full max-w-md mx-auto mb-2"
                 />
-                <p className="text-4xl font-bold text-yellow-500">{pack.price}</p>
-              </div>
+                <p className="text-4xl font-bold text-yellow-500">{pack.displayPrice}</p>
+                </div>
 
               {/* Machine ID Section */}
               <div className="px-6 pb-4">
@@ -91,29 +106,67 @@ export default function BuyNow() {
                   </p>
                 </div>
 
-                {/* PayPal Buy Now Button */}
-                <button className="w-full bg-[#ffc439] hover:bg-[#ffb710] text-gray-900 font-bold py-3 rounded mb-2 flex items-center justify-center gap-2 transition-colors">
-                  <span className="text-[#003087] font-bold">Pay</span>
-                  <span className="text-[#009cde] font-bold">Pal</span>
-                  <span className="ml-2">Buy Now</span>
-                </button>
+                {/* PayPal Buttons */}
+                <div className="mb-3">
+                  {!pack.state ? (
+                    <div className="bg-yellow-900/30 border border-yellow-700 rounded p-3 text-center">
+                      <p className="text-yellow-400 text-sm">Please enter your Machine ID first</p>
+                    </div>
+                  ) : (
+                    <PayPalButtons
+                      style={{ layout: "vertical" }}
+                      createOrder={async () => {
+                        try {
+                          const { data } = await base44.functions.invoke('createPayPalOrder', {
+                            packId: pack.id,
+                            price: pack.price,
+                            packName: pack.name,
+                            machineId: pack.state
+                          });
+                          return data.orderId;
+                        } catch (error) {
+                          toast.error("Failed to create order");
+                          throw error;
+                        }
+                      }}
+                      onApprove={async (data) => {
+                        try {
+                          const { data: result } = await base44.functions.invoke('capturePayPalOrder', {
+                            orderId: data.orderID
+                          });
 
-                {/* Debit/Credit Card Button */}
-                <button className="w-full bg-[#2a2a2a] hover:bg-[#333333] text-gray-300 font-semibold py-3 rounded border border-gray-700 flex items-center justify-center gap-2 transition-colors mb-3">
-                  <CreditCard className="w-5 h-5" />
-                  Debit or Credit Card
-                </button>
-
-                <p className="text-center text-xs text-gray-600 mb-2">Powered by PayPal</p>
+                          if (result.success) {
+                            pack.setSerial(result.serialNumber);
+                            toast.success("Payment successful! Check your email for the serial number.");
+                          }
+                        } catch (error) {
+                          toast.error("Payment processing failed");
+                        }
+                      }}
+                      onError={(err) => {
+                        toast.error("Payment error occurred");
+                        console.error(err);
+                      }}
+                    />
+                  )}
+                </div>
 
                 {/* Serial Number Section */}
                 <div className="bg-[#2a2a2a] border border-yellow-700/30 rounded p-4">
                   <p className="text-center text-yellow-500 text-sm font-semibold mb-2">
                     Serial Number
                   </p>
-                  <p className="text-center text-gray-500 text-xs">
-                    Your serial will be sent to your email and shown here
-                  </p>
+                  {pack.serial ? (
+                    <div className="bg-black border border-yellow-700 rounded p-3">
+                      <p className="text-center text-yellow-400 font-mono text-sm break-all">
+                        {pack.serial}
+                      </p>
+                    </div>
+                  ) : (
+                    <p className="text-center text-gray-500 text-xs">
+                      Your serial will be sent to your email and shown here
+                    </p>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -131,6 +184,7 @@ export default function BuyNow() {
           </p>
         </div>
       </div>
-    </div>
-  );
-}
+      </div>
+      </PayPalScriptProvider>
+      );
+      }
