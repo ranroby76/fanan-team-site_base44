@@ -13,6 +13,8 @@ export default function BuyNow() {
   const [maxPackId, setMaxPackId] = useState("");
   const [madMidiSerial, setMadMidiSerial] = useState("");
   const [maxPackSerial, setMaxPackSerial] = useState("");
+  const [madMidiEmail, setMadMidiEmail] = useState("");
+  const [maxPackEmail, setMaxPackEmail] = useState("");
 
   const packs = [
     {
@@ -23,6 +25,8 @@ export default function BuyNow() {
       displayPrice: "$22.00",
       state: madMidiId,
       setState: setMadMidiId,
+      email: madMidiEmail,
+      setEmail: setMadMidiEmail,
       serial: madMidiSerial,
       setSerial: setMadMidiSerial
     },
@@ -34,6 +38,8 @@ export default function BuyNow() {
       displayPrice: "$12.00",
       state: maxPackId,
       setState: setMaxPackId,
+      email: maxPackEmail,
+      setEmail: setMaxPackEmail,
       serial: maxPackSerial,
       setSerial: setMaxPackSerial
     }
@@ -99,39 +105,42 @@ export default function BuyNow() {
                     placeholder="enter your id here"
                     value={pack.state}
                     onChange={(e) => pack.setState(e.target.value)}
+                    className="bg-black border-gray-700 text-white text-center placeholder:text-gray-600 mb-3"
+                  />
+                  <Input 
+                    type="email"
+                    placeholder="your email address"
+                    value={pack.email}
+                    onChange={(e) => pack.setEmail(e.target.value)}
                     className="bg-black border-gray-700 text-white text-center placeholder:text-gray-600"
                   />
                   <p className="text-center text-gray-500 text-xs mt-2">
-                    Find this in the plugin's "REGISTER" window.
+                    Find the ID in the plugin's "REGISTER" window.
                   </p>
                 </div>
 
                 {/* PayPal Buttons */}
                 <div className="mb-3">
-                  {!pack.state ? (
+                  {!pack.state || !pack.email ? (
                     <div className="bg-yellow-900/30 border border-yellow-700 rounded p-3 text-center">
-                      <p className="text-yellow-400 text-sm">Please enter your Machine ID first</p>
+                      <p className="text-yellow-400 text-sm">Please enter your Machine ID and email first</p>
                     </div>
                   ) : (
                     <PayPalButtons
                       style={{ layout: "vertical" }}
                       createOrder={async () => {
-                        console.log('Creating order for:', pack.id, pack.state);
                         const response = await base44.functions.invoke('createPayPalOrder', {
                           packId: pack.id,
                           price: pack.price,
                           packName: pack.name,
-                          machineId: pack.state
+                          machineId: pack.state,
+                          email: pack.email
                         });
-                        console.log('Full response:', response);
-                        console.log('Response data:', response.data);
-                        
+
                         if (response?.data?.orderId) {
-                          console.log('Returning order ID:', response.data.orderId);
                           return response.data.orderId;
                         }
-                        
-                        console.error('Invalid response structure:', response);
+
                         throw new Error('No order ID received from server');
                       }}
                       onApprove={async (data) => {

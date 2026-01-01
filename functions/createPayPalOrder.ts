@@ -23,17 +23,10 @@ async function getPayPalAccessToken() {
 
 Deno.serve(async (req) => {
   try {
-    const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
+    const { packId, price, packName, machineId, email } = await req.json();
     
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
-    const { packId, price, packName, machineId } = await req.json();
-    
-    if (!machineId) {
-      return Response.json({ error: 'Machine ID is required' }, { status: 400 });
+    if (!machineId || !email) {
+      return Response.json({ error: 'Machine ID and email are required' }, { status: 400 });
     }
 
     const accessToken = await getPayPalAccessToken();
@@ -47,8 +40,7 @@ Deno.serve(async (req) => {
         },
         description: packName,
         custom_id: JSON.stringify({
-          userId: user.id,
-          userEmail: user.email,
+          email,
           packId,
           machineId
         })

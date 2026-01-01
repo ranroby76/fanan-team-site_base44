@@ -31,12 +31,6 @@ function generateSerialNumber(machineId, packId) {
 Deno.serve(async (req) => {
   try {
     const base44 = createClientFromRequest(req);
-    const user = await base44.auth.me();
-    
-    if (!user) {
-      return Response.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const { orderId } = await req.json();
     
     const accessToken = await getPayPalAccessToken();
@@ -56,8 +50,8 @@ Deno.serve(async (req) => {
       const serialNumber = generateSerialNumber(customData.machineId, customData.packId);
       
       // Send email with serial number
-      await base44.integrations.Core.SendEmail({
-        to: user.email,
+      await base44.asServiceRole.integrations.Core.SendEmail({
+        to: customData.email,
         subject: `Your ${customData.packId === 'mad-midi' ? 'MAD MIDI MACHINES' : 'MAX! PACK'} Serial Number`,
         body: `Thank you for your purchase!
 
