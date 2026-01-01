@@ -82,26 +82,21 @@ export default function PacksShowcase() {
               >
                 <Link to={createPageUrl(pack.page)}>
                   <Card className="group bg-gray-900/50 border-gray-800/50 overflow-hidden hover:border-gray-700 transition-all duration-300 h-full">
-                    <CardContent className="p-6 flex items-start gap-4">
-                      <div className={`w-14 h-14 rounded-xl bg-gradient-to-br ${pack.color} flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
-                        <Icon className="w-7 h-7 text-white" />
+                    <CardContent className="p-6">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
+                          {pack.name}
+                        </h3>
+                        <Badge className={`${pack.badgeColor} text-white border-0 text-xs`}>
+                          {pack.badge}
+                        </Badge>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="text-xl font-semibold text-white group-hover:text-blue-400 transition-colors">
-                            {pack.name}
-                          </h3>
-                          <Badge className={`${pack.badgeColor} text-white border-0 text-xs`}>
-                            {pack.badge}
-                          </Badge>
-                        </div>
-                        <p className="text-gray-400 text-sm mb-4">
-                          {pack.description}
-                        </p>
-                        <div className="flex items-center text-blue-400 text-sm font-medium">
-                          Learn More
-                          <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
-                        </div>
+                      <p className="text-gray-400 text-sm mb-4">
+                        {pack.description}
+                      </p>
+                      <div className="flex items-center text-blue-400 text-sm font-medium">
+                        Learn More
+                        <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </CardContent>
                   </Card>

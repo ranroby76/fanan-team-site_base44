@@ -33,37 +33,7 @@ export default function HeroSection() {
           </div>
         </motion.div>
 
-        {/* Sales Banner */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-6"
-        >
-          <div className="bg-gradient-to-r from-lime-200 via-yellow-100 to-lime-200 border-2 border-amber-900/30 rounded-lg py-6 px-4">
-            <div className="flex items-center justify-between max-w-6xl mx-auto">
-              <div className="text-center flex-shrink-0">
-                <div className="text-5xl sm:text-6xl font-black text-red-800" style={{ fontFamily: 'Impact, sans-serif' }}>
-                  60%
-                </div>
-                <div className="text-sm font-semibold text-red-800 -mt-1">OFF</div>
-              </div>
-              
-              <div className="flex-1 text-center px-4">
-                <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-gray-900 tracking-tight" style={{ fontFamily: 'Impact, sans-serif', letterSpacing: '0.05em' }}>
-                  WE BELIEVE EVERY SEASON IS SALES SEASON
-                </h2>
-              </div>
-              
-              <div className="text-center flex-shrink-0">
-                <div className="text-5xl sm:text-6xl font-black text-red-800" style={{ fontFamily: 'Impact, sans-serif' }}>
-                  60%
-                </div>
-                <div className="text-sm font-semibold text-red-800 -mt-1">OFF</div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+
       </div>
     </section>
   );
