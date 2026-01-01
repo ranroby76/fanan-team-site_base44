@@ -13,6 +13,7 @@ export default function BuyNow() {
     {
       id: "mad-midi",
       name: "MAD MIDI MACHINES",
+      logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/c6850e68d_madmidimachines.png",
       price: "$22.00",
       state: madMidiId,
       setState: setMadMidiId
@@ -20,6 +21,7 @@ export default function BuyNow() {
     {
       id: "max-pack",
       name: "MAX! PACK",
+      logo: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/693af3db20c38c22bc69519e/7796dc67d_propack.png",
       price: "$12.00",
       state: maxPackId,
       setState: setMaxPackId
@@ -64,13 +66,11 @@ export default function BuyNow() {
             >
               {/* Pack Header */}
               <div className="p-6 text-center">
-                <h2 className="text-2xl font-bold text-yellow-400 mb-2" style={{ 
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                  fontFamily: 'Impact, sans-serif',
-                  letterSpacing: '0.05em'
-                }}>
-                  {pack.name}
-                </h2>
+                <img 
+                  src={pack.logo} 
+                  alt={pack.name}
+                  className="w-full max-w-md mx-auto mb-2"
+                />
                 <p className="text-4xl font-bold text-yellow-500">{pack.price}</p>
               </div>
 
