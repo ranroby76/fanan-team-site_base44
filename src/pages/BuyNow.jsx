@@ -47,7 +47,7 @@ export default function BuyNow() {
 
   return (
     <PayPalScriptProvider options={{ 
-      clientId: "AdoK3-mdDQxleLLbYSTCtVy1naeCPfP78ayxahlSAcwwhIEGtY6eEiaBJZrbFCKWdQ0g9seXWYTcO5zo",
+      clientId: "YOUR_LIVE_PAYPAL_CLIENT_ID",
       currency: "USD",
       intent: "capture"
     }}>
