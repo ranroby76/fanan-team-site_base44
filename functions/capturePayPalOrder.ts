@@ -61,32 +61,36 @@ Deno.serve(async (req) => {
       const amount = captureData.purchase_units[0].payments.captures[0].amount.value;
 
       // Send thank you email via EmailJS (server-side with private key)
-      const emailData = {
-        service_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_SERVICE_ID"),
-        template_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_TEMPLATE_ID"),
-        user_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"),
-        accessToken: Deno.env.get("EMAILJS_PRIVATE_KEY"),
-        template_params: {
-          to_name: customData.email.split('@')[0],
-          to_email: customData.email,
-          amount: amount,
-          serial_number: serialNumber
+      try {
+        const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${Deno.env.get("EMAILJS_PRIVATE_KEY")}`
+          },
+          body: JSON.stringify({
+            service_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_SERVICE_ID"),
+            template_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_TEMPLATE_ID"),
+            user_id: Deno.env.get("NEXT_PUBLIC_EMAILJS_PUBLIC_KEY"),
+            template_params: {
+              to_name: customData.email.split('@')[0],
+              to_email: customData.email,
+              amount: amount,
+              serial_number: serialNumber
+            }
+          })
+        });
+
+        const emailResult = await emailResponse.text();
+        console.log('EmailJS response:', emailResponse.status, emailResult);
+        
+        if (emailResponse.ok) {
+          console.log('Email sent successfully to:', customData.email);
+        } else {
+          console.error('Failed to send email:', emailResult);
         }
-      };
-
-      const emailResponse = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(emailData)
-      });
-
-      const emailResult = await emailResponse.text();
-      console.log('EmailJS response:', emailResponse.status, emailResult);
-      
-      if (emailResponse.status !== 200) {
-        console.error('Failed to send email:', emailResult);
+      } catch (emailError) {
+        console.error('Email error:', emailError.message);
       }
 
       return Response.json({ 
